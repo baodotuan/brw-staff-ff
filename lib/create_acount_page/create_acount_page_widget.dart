@@ -10,7 +10,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateAcountPageWidget extends StatefulWidget {
-  CreateAcountPageWidget({Key key}) : super(key: key);
+  const CreateAcountPageWidget({Key key}) : super(key: key);
 
   @override
   _CreateAcountPageWidgetState createState() => _CreateAcountPageWidgetState();
@@ -23,7 +23,6 @@ class _CreateAcountPageWidgetState extends State<CreateAcountPageWidget> {
   bool passwordVisibility;
   TextEditingController confirmpasswordController;
   bool confirmpasswordVisibility;
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -270,47 +269,42 @@ class _CreateAcountPageWidgetState extends State<CreateAcountPageWidget> {
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
-                        setState(() => _loadingButton = true);
-                        try {
-                          if (passwordController.text !=
-                              confirmpasswordController.text) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  "Passwords don't match!",
-                                ),
+                        if (passwordController.text !=
+                            confirmpasswordController.text) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "Passwords don't match!",
                               ),
-                            );
-                            return;
-                          }
-
-                          final user = await createAccountWithEmail(
-                            context,
-                            emailAddressController.text,
-                            passwordController.text,
-                          );
-                          if (user == null) {
-                            return;
-                          }
-
-                          final staffsCreateData = createStaffsRecordData(
-                            role: '123',
-                          );
-                          await StaffsRecord.collection
-                              .doc(user.uid)
-                              .update(staffsCreateData);
-
-                          await Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  NavBarPage(initialPage: 'HomePage'),
                             ),
-                            (r) => false,
                           );
-                        } finally {
-                          setState(() => _loadingButton = false);
+                          return;
                         }
+
+                        final user = await createAccountWithEmail(
+                          context,
+                          emailAddressController.text,
+                          passwordController.text,
+                        );
+                        if (user == null) {
+                          return;
+                        }
+
+                        final staffsCreateData = createStaffsRecordData(
+                          role: '123',
+                        );
+                        await StaffsRecord.collection
+                            .doc(user.uid)
+                            .update(staffsCreateData);
+
+                        await Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                NavBarPage(initialPage: 'HomePage'),
+                          ),
+                          (r) => false,
+                        );
                       },
                       text: 'Create Account',
                       options: FFButtonOptions(
@@ -330,7 +324,6 @@ class _CreateAcountPageWidgetState extends State<CreateAcountPageWidget> {
                         ),
                         borderRadius: 8,
                       ),
-                      loading: _loadingButton,
                     )
                   ],
                 ),

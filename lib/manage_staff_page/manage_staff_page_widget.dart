@@ -9,7 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ManageStaffPageWidget extends StatefulWidget {
-  ManageStaffPageWidget({Key key}) : super(key: key);
+  const ManageStaffPageWidget({Key key}) : super(key: key);
 
   @override
   _ManageStaffPageWidgetState createState() => _ManageStaffPageWidgetState();
@@ -19,7 +19,6 @@ class _ManageStaffPageWidgetState extends State<ManageStaffPageWidget> {
   TextEditingController confirmPasswordTextController;
   bool passwordVisibility;
   TextEditingController emailTextController;
-  bool _loadingButton = false;
   TextEditingController textFieldbController;
   bool textFieldbVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -46,46 +45,41 @@ class _ManageStaffPageWidgetState extends State<ManageStaffPageWidget> {
           children: [
             FFButtonWidget(
               onPressed: () async {
-                setState(() => _loadingButton = true);
-                try {
-                  if (textFieldbController.text !=
-                      confirmPasswordTextController.text) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          "Passwords don't match!",
-                        ),
+                if (textFieldbController.text !=
+                    confirmPasswordTextController.text) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Passwords don't match!",
                       ),
-                    );
-                    return;
-                  }
-
-                  final user = await createAccountWithEmail(
-                    context,
-                    emailTextController.text,
-                    textFieldbController.text,
-                  );
-                  if (user == null) {
-                    return;
-                  }
-
-                  final staffsCreateData = createStaffsRecordData(
-                    role: '123',
-                  );
-                  await StaffsRecord.collection
-                      .doc(user.uid)
-                      .update(staffsCreateData);
-
-                  await Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NavBarPage(initialPage: 'HomePage'),
                     ),
-                    (r) => false,
                   );
-                } finally {
-                  setState(() => _loadingButton = false);
+                  return;
                 }
+
+                final user = await createAccountWithEmail(
+                  context,
+                  emailTextController.text,
+                  textFieldbController.text,
+                );
+                if (user == null) {
+                  return;
+                }
+
+                final staffsCreateData = createStaffsRecordData(
+                  role: '123',
+                );
+                await StaffsRecord.collection
+                    .doc(user.uid)
+                    .update(staffsCreateData);
+
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NavBarPage(initialPage: 'HomePage'),
+                  ),
+                  (r) => false,
+                );
               },
               text: 'Button',
               options: FFButtonOptions(
@@ -102,7 +96,6 @@ class _ManageStaffPageWidgetState extends State<ManageStaffPageWidget> {
                 ),
                 borderRadius: 12,
               ),
-              loading: _loadingButton,
             ),
             TextFormField(
               controller: emailTextController,

@@ -41,3 +41,21 @@ int stringToInt(String input) {
   // Add your function code here!
   return int.parse(input);
 }
+
+bool returnFalseIfNegative(int number) {
+  // Add your function code here!
+  if (number >= 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool returnFalseIfEmpty(String string) {
+  // Add your function code here!
+  if (["", null].contains(string)) {
+    return false;
+  } else {
+    return true;
+  }
+}

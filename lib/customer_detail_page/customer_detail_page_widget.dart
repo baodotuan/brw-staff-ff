@@ -11,7 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomerDetailPageWidget extends StatefulWidget {
-  CustomerDetailPageWidget({
+  const CustomerDetailPageWidget({
     Key key,
     this.userRef,
   }) : super(key: key);
@@ -24,8 +24,6 @@ class CustomerDetailPageWidget extends StatefulWidget {
 }
 
 class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
-  bool _loadingButton1 = false;
-  bool _loadingButton2 = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -122,22 +120,17 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () async {
-                            setState(() => _loadingButton1 = true);
-                            try {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => TransactionPageWidget(
-                                    userRef: widget.userRef,
-                                    creditBool: false,
-                                    onlineOrder: false,
-                                    transAmount: 0,
-                                  ),
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TransactionPageWidget(
+                                  userRef: widget.userRef,
+                                  creditBool: false,
+                                  onlineOrder: false,
+                                  transAmount: 0,
                                 ),
-                              );
-                            } finally {
-                              setState(() => _loadingButton1 = false);
-                            }
+                              ),
+                            );
                           },
                           text: 'Nap tien',
                           options: FFButtonOptions(
@@ -154,26 +147,20 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                             ),
                             borderRadius: 20,
                           ),
-                          loading: _loadingButton1,
                         ),
                         FFButtonWidget(
                           onPressed: () async {
-                            setState(() => _loadingButton2 = true);
-                            try {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => TransactionPageWidget(
-                                    userRef: widget.userRef,
-                                    creditBool: true,
-                                    onlineOrder: false,
-                                    transAmount: 0,
-                                  ),
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TransactionPageWidget(
+                                  userRef: widget.userRef,
+                                  creditBool: true,
+                                  onlineOrder: false,
+                                  transAmount: 0,
                                 ),
-                              );
-                            } finally {
-                              setState(() => _loadingButton2 = false);
-                            }
+                              ),
+                            );
                           },
                           text: 'Thanh toan',
                           options: FFButtonOptions(
@@ -190,7 +177,6 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                             ),
                             borderRadius: 20,
                           ),
-                          loading: _loadingButton2,
                         )
                       ],
                     ),

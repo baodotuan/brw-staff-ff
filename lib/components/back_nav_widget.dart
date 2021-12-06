@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BackNavWidget extends StatefulWidget {
-  BackNavWidget({Key key}) : super(key: key);
+  const BackNavWidget({Key key}) : super(key: key);
 
   @override
   _BackNavWidgetState createState() => _BackNavWidgetState();

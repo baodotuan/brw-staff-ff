@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
-
+import 'backend/push_notifications/push_notifications_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:brw_staff/login_page/login_page_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
@@ -28,6 +28,7 @@ class _MyAppState extends State<MyApp> {
   Stream<BrwStaffFirebaseUser> userStream;
   BrwStaffFirebaseUser initialUser;
   final authUserSub = authenticatedUserStream.listen((_) {});
+  final fcmTokenSub = fcmTokenUserStream.listen((_) {});
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     authUserSub.cancel();
-
+    fcmTokenSub.cancel();
     super.dispose();
   }
 
@@ -66,7 +67,7 @@ class _MyAppState extends State<MyApp> {
               ),
             )
           : currentUser.loggedIn
-              ? NavBarPage()
+              ? PushNotificationsHandler(child: NavBarPage())
               : LoginPageWidget(),
     );
   }
@@ -120,7 +121,7 @@ class _NavBarPageState extends State<NavBarPage> {
         ],
         backgroundColor: Colors.white,
         currentIndex: tabs.keys.toList().indexOf(_currentPage),
-        selectedItemColor: FlutterFlowTheme.primaryColor,
+        selectedItemColor: Color(0xFFEFB33B),
         unselectedItemColor: Color(0x8A000000),
         onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
         showSelectedLabels: false,

@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPageWidget extends StatefulWidget {
-  LoginPageWidget({Key key}) : super(key: key);
+  const LoginPageWidget({Key key}) : super(key: key);
 
   @override
   _LoginPageWidgetState createState() => _LoginPageWidgetState();
@@ -18,7 +18,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   TextEditingController passwordController;
   bool passwordVisibility;
   TextEditingController usernameController;
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -220,28 +219,23 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
-                              setState(() => _loadingButton = true);
-                              try {
-                                final user = await signInWithEmail(
-                                  context,
-                                  usernameController.text,
-                                  passwordController.text,
-                                );
-                                if (user == null) {
-                                  return;
-                                }
-
-                                await Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        NavBarPage(initialPage: 'HomePage'),
-                                  ),
-                                  (r) => false,
-                                );
-                              } finally {
-                                setState(() => _loadingButton = false);
+                              final user = await signInWithEmail(
+                                context,
+                                usernameController.text,
+                                passwordController.text,
+                              );
+                              if (user == null) {
+                                return;
                               }
+
+                              await Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      NavBarPage(initialPage: 'HomePage'),
+                                ),
+                                (r) => false,
+                              );
                             },
                             text: 'Login',
                             options: FFButtonOptions(
@@ -260,7 +254,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                               borderRadius: 12,
                             ),
-                            loading: _loadingButton,
                           )
                         ],
                       ),

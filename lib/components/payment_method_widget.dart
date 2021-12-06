@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PaymentMethodWidget extends StatefulWidget {
-  PaymentMethodWidget({
+  const PaymentMethodWidget({
     Key key,
     this.cash,
     this.point,

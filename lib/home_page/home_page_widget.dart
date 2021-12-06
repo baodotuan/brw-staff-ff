@@ -13,7 +13,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePageWidget extends StatefulWidget {
-  HomePageWidget({Key key}) : super(key: key);
+  const HomePageWidget({Key key}) : super(key: key);
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
@@ -23,7 +23,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   List<UsersRecord> algoliaSearchResults = [];
   TextEditingController textController;
   var qrResult = '';
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -139,19 +138,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               FFButtonWidget(
                 onPressed: () async {
-                  setState(() => _loadingButton = true);
-                  try {
-                    await signOut();
-                    await Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginPageWidget(),
-                      ),
-                      (r) => false,
-                    );
-                  } finally {
-                    setState(() => _loadingButton = false);
-                  }
+                  await signOut();
+                  await Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPageWidget(),
+                    ),
+                    (r) => false,
+                  );
                 },
                 text: 'log out',
                 options: FFButtonOptions(
@@ -168,7 +162,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                   borderRadius: 12,
                 ),
-                loading: _loadingButton,
               )
             ],
           ),

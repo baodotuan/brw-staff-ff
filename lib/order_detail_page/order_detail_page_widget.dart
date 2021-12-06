@@ -12,7 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OrderDetailPageWidget extends StatefulWidget {
-  OrderDetailPageWidget({
+  const OrderDetailPageWidget({
     Key key,
     this.orderRef,
     this.userRef,
@@ -26,9 +26,6 @@ class OrderDetailPageWidget extends StatefulWidget {
 }
 
 class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
-  bool _loadingButton1 = false;
-  bool _loadingButton2 = false;
-  bool _loadingButton3 = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -214,173 +211,177 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                            child: Builder(
-                              builder: (context) {
-                                final item =
-                                    columnOrdersRecord.items?.toList() ?? [];
-                                return Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children:
-                                      List.generate(item.length, (itemIndex) {
-                                    final itemItem = item[itemIndex];
-                                    return Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 5, 10, 0),
-                                      child: StreamBuilder<OrderItemsRecord>(
-                                        stream: OrderItemsRecord.getDocument(
-                                            itemItem),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 40,
-                                                height: 40,
-                                                child: SpinKitDoubleBounce(
-                                                  color: FlutterFlowTheme
-                                                      .primaryColor,
-                                                  size: 40,
-                                                ),
+                                EdgeInsetsDirectional.fromSTEB(20, 20, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Items:',
+                                  style: FlutterFlowTheme.title3,
+                                )
+                              ],
+                            ),
+                          ),
+                          Builder(
+                            builder: (context) {
+                              final item =
+                                  columnOrdersRecord.items?.toList() ?? [];
+                              return Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children:
+                                    List.generate(item.length, (itemIndex) {
+                                  final itemItem = item[itemIndex];
+                                  return StreamBuilder<OrderItemsRecord>(
+                                    stream:
+                                        OrderItemsRecord.getDocument(itemItem),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 40,
+                                            height: 40,
+                                            child: SpinKitDoubleBounce(
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              size: 40,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      final rowOrderItemsRecord = snapshot.data;
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              width: 100,
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                color: FlutterFlowTheme
+                                                    .tertiaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(0),
                                               ),
-                                            );
-                                          }
-                                          final rowOrderItemsRecord =
-                                              snapshot.data;
-                                          return Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Expanded(
-                                                child: Container(
-                                                  width: 100,
-                                                  height: 60,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFFEEEEEE),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                  child: Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0, 0),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(10, 10,
-                                                                  10, 10),
-                                                      child: StreamBuilder<
-                                                          MenuItemsRecord>(
-                                                        stream: MenuItemsRecord
-                                                            .getDocument(
-                                                                rowOrderItemsRecord
-                                                                    .item),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 40,
-                                                                height: 40,
-                                                                child:
-                                                                    SpinKitDoubleBounce(
-                                                                  color: FlutterFlowTheme
-                                                                      .primaryColor,
-                                                                  size: 40,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          final columnMenuItemsRecord =
-                                                              snapshot.data;
-                                                          return Column(
+                                              child: Align(
+                                                alignment:
+                                                    AlignmentDirectional(0, 0),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(20, 20, 20, 20),
+                                                  child: StreamBuilder<
+                                                      MenuItemsRecord>(
+                                                    stream: MenuItemsRecord
+                                                        .getDocument(
+                                                            rowOrderItemsRecord
+                                                                .item),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 40,
+                                                            height: 40,
+                                                            child:
+                                                                SpinKitDoubleBounce(
+                                                              color: FlutterFlowTheme
+                                                                  .primaryColor,
+                                                              size: 40,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final columnMenuItemsRecord =
+                                                          snapshot.data;
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
                                                                     .max,
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
-                                                                    .start,
+                                                                    .spaceBetween,
                                                             children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Text(
-                                                                    columnMenuItemsRecord
-                                                                        .name,
-                                                                    style: FlutterFlowTheme
-                                                                        .subtitle2,
-                                                                  ),
-                                                                  Text(
-                                                                    rowOrderItemsRecord
-                                                                        .quantity
-                                                                        .toString(),
-                                                                    style: FlutterFlowTheme
-                                                                        .subtitle2,
-                                                                  )
-                                                                ],
+                                                              Text(
+                                                                columnMenuItemsRecord
+                                                                    .name,
+                                                                style: FlutterFlowTheme
+                                                                    .subtitle2,
                                                               ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Note:',
-                                                                      style: FlutterFlowTheme
-                                                                          .bodyText1,
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              5,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Text(
-                                                                        rowOrderItemsRecord
-                                                                            .note,
-                                                                        style: FlutterFlowTheme
-                                                                            .bodyText1,
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
+                                                              Text(
+                                                                rowOrderItemsRecord
+                                                                    .quantity
+                                                                    .toString(),
+                                                                style: FlutterFlowTheme
+                                                                    .subtitle2,
                                                               )
                                                             ],
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        10,
+                                                                        0,
+                                                                        0,
+                                                                        0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Text(
+                                                                  'Note:',
+                                                                  style: FlutterFlowTheme
+                                                                      .bodyText1,
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child: Text(
+                                                                    rowOrderItemsRecord
+                                                                        .note,
+                                                                    style: FlutterFlowTheme
+                                                                        .bodyText1,
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Divider(
+                                                            height: 10,
+                                                            thickness: 1,
+                                                            color: FlutterFlowTheme
+                                                                .secondaryColor,
+                                                          )
+                                                        ],
+                                                      );
+                                                    },
                                                   ),
                                                 ),
-                                              )
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  }),
-                                );
-                              },
-                            ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }),
+                              );
+                            },
                           ),
                           Padding(
                             padding:
@@ -439,17 +440,21 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                       isScrollControlled: true,
                                       context: context,
                                       builder: (context) {
-                                        return Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.3,
-                                          child: PaymentMethodWidget(
-                                            cash:
-                                                columnOrdersRecord.cashPayment,
-                                            point:
-                                                columnOrdersRecord.pointPayment,
-                                            orderRef: widget.orderRef,
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.of(context).viewInsets,
+                                          child: Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.3,
+                                            child: PaymentMethodWidget(
+                                              cash: columnOrdersRecord
+                                                  .cashPayment,
+                                              point: columnOrdersRecord
+                                                  .pointPayment,
+                                              orderRef: widget.orderRef,
+                                            ),
                                           ),
                                         );
                                       },
@@ -541,30 +546,22 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () async {
-                                              setState(
-                                                  () => _loadingButton1 = true);
-                                              try {
-                                                await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        TransactionPageWidget(
-                                                      creditBool: true,
-                                                      userRef:
-                                                          columnOrdersRecord
-                                                              .userId,
-                                                      transAmount:
-                                                          columnOrdersRecord
-                                                              .total,
-                                                      onlineOrder: true,
-                                                      orderRef: widget.orderRef,
-                                                    ),
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TransactionPageWidget(
+                                                    creditBool: true,
+                                                    userRef: columnOrdersRecord
+                                                        .userId,
+                                                    transAmount:
+                                                        columnOrdersRecord
+                                                            .total,
+                                                    onlineOrder: true,
+                                                    orderRef: widget.orderRef,
                                                   ),
-                                                );
-                                              } finally {
-                                                setState(() =>
-                                                    _loadingButton1 = false);
-                                              }
+                                                ),
+                                              );
                                             },
                                             text: 'Thanh Toán',
                                             options: FFButtonOptions(
@@ -584,7 +581,6 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                               ),
                                               borderRadius: 12,
                                             ),
-                                            loading: _loadingButton1,
                                           )
                                         ],
                                       ),
@@ -599,91 +595,103 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                     },
                   ),
                 ),
-                Visibility(
-                  visible: columnOrdersRecord.statusProcessing ?? true,
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FFButtonWidget(
-                          onPressed: () async {
-                            setState(() => _loadingButton2 = true);
-                            try {
-                              final ordersUpdateData = createOrdersRecordData(
-                                statusReady: true,
-                                statusProcessing: false,
-                              );
-                              await widget.orderRef.update(ordersUpdateData);
-                            } finally {
-                              setState(() => _loadingButton2 = false);
-                            }
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Visibility(
+                      visible: columnOrdersRecord.statusProcessing ?? true,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: () async {
+                            final ordersUpdateData = createOrdersRecordData(
+                              statusProcessing: false,
+                              statusReady: true,
+                            );
+                            await widget.orderRef.update(ordersUpdateData);
+                            Navigator.pop(context);
                           },
-                          text: 'Order is ready',
-                          options: FFButtonOptions(
-                            width: 150,
-                            height: 40,
-                            color: FlutterFlowTheme.primaryColor,
-                            textStyle: FlutterFlowTheme.subtitle2.override(
-                              fontFamily: 'Roboto',
-                              color: Colors.white,
+                          child: Container(
+                            width: 100,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.secondaryColor,
                             ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Text(
+                              'Order Ready',
+                              style: FlutterFlowTheme.subtitle2.override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.tertiaryColor,
+                              ),
                             ),
-                            borderRadius: 12,
                           ),
-                          loading: _loadingButton2,
-                        )
-                      ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Visibility(
-                  visible: columnOrdersRecord.statusReady ?? true,
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FFButtonWidget(
-                          onPressed: () async {
-                            setState(() => _loadingButton3 = true);
-                            try {
-                              final usersUpdateData = {
-                                'processing_order':
-                                    FieldValue.arrayRemove([widget.orderRef]),
-                              };
-                              await widget.userRef.update(usersUpdateData);
-                              await columnOrdersRecord.reference.delete();
-                              Navigator.pop(context);
-                            } finally {
-                              setState(() => _loadingButton3 = false);
-                            }
+                    Visibility(
+                      visible: columnOrdersRecord.statusReady ?? true,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: () async {
+                            final ordersUpdateData = createOrdersRecordData(
+                              statusReady: false,
+                              statusDone: true,
+                            );
+                            await widget.orderRef.update(ordersUpdateData);
+
+                            final usersUpdateData = {
+                              'processing_order':
+                                  FieldValue.arrayRemove([widget.orderRef]),
+                            };
+                            await widget.userRef.update(usersUpdateData);
+                            Navigator.pop(context);
                           },
-                          text: 'Hoàn Thành Đơn',
-                          options: FFButtonOptions(
-                            width: 150,
-                            height: 40,
-                            color: FlutterFlowTheme.primaryColor,
-                            textStyle: FlutterFlowTheme.subtitle2.override(
-                              fontFamily: 'Roboto',
-                              color: Colors.white,
+                          child: Container(
+                            width: 100,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.primaryColor,
                             ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Text(
+                              'Order Finished',
+                              style: FlutterFlowTheme.subtitle2.override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.tertiaryColor,
+                              ),
                             ),
-                            borderRadius: 12,
                           ),
-                          loading: _loadingButton3,
-                        )
-                      ],
+                        ),
+                      ),
                     ),
-                  ),
+                    Visibility(
+                      visible: columnOrdersRecord.statusDone ?? true,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: () async {
+                            await widget.orderRef.delete();
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFAE2D2D),
+                            ),
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Text(
+                              'Delete Order',
+                              style: FlutterFlowTheme.subtitle2.override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.tertiaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 )
               ],
             );
