@@ -8,35 +8,6 @@ import 'place.dart';
 import '../backend/backend.dart';
 import '../../auth/auth_util.dart';
 
-String transactionType(bool creditBool) {
-  // Add your function code here!
-  if (creditBool) {
-    return "thanh toan";
-  }
-  ;
-  if (!creditBool) {
-    return 'nap tien';
-  }
-  ;
-  return "error";
-}
-
-int getThenAddPoint(
-  int currentPoint,
-  int newPoint,
-  bool creditBool,
-) {
-  // Add your function code here!
-  if (creditBool) {
-    return (currentPoint - newPoint);
-  }
-  ;
-  if (!creditBool) {
-    return (currentPoint + newPoint);
-  }
-  ;
-}
-
 int stringToInt(String input) {
   // Add your function code here!
   return int.parse(input);
@@ -57,5 +28,34 @@ bool returnFalseIfEmpty(String string) {
     return false;
   } else {
     return true;
+  }
+}
+
+int addOrSubstractTwoInteger(
+  int input1,
+  int input2,
+  bool add,
+) {
+  // Add your function code here!
+  if (add) {
+    return input1 + input2;
+  } else {
+    return input1 - input2;
+  }
+}
+
+int setLimitToInterger(
+  int input,
+  int limit,
+) {
+  // Add your function code here!
+  try {
+    if (input > limit) {
+      return limit;
+    } else {
+      return input;
+    }
+  } catch (e) {
+    return input;
   }
 }

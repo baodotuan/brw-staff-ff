@@ -1,7 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
-import '../components/input_comp_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/upload_media.dart';
@@ -19,6 +18,7 @@ class TransactionPageWidget extends StatefulWidget {
     this.transAmount,
     this.onlineOrder,
     this.orderRef,
+    this.transQuantity,
   }) : super(key: key);
 
   final bool creditBool;
@@ -26,6 +26,7 @@ class TransactionPageWidget extends StatefulWidget {
   final int transAmount;
   final bool onlineOrder;
   final DocumentReference orderRef;
+  final int transQuantity;
 
   @override
   _TransactionPageWidgetState createState() => _TransactionPageWidgetState();
@@ -33,7 +34,8 @@ class TransactionPageWidget extends StatefulWidget {
 
 class _TransactionPageWidgetState extends State<TransactionPageWidget> {
   String uploadedFileUrl = '';
-  TextEditingController textController;
+  TextEditingController textController1;
+  TextEditingController textController2;
   TransactionsRecord createdTran;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -41,7 +43,10 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController(text: widget.transAmount.toString());
+    textController1 =
+        TextEditingController(text: widget.transAmount.toString());
+    textController2 =
+        TextEditingController(text: widget.transQuantity.toString());
   }
 
   @override
@@ -138,6 +143,22 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                         style: FlutterFlowTheme.subtitle2,
                                       )
                                     ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Loyalty Point: ',
+                                        style: FlutterFlowTheme.subtitle2,
+                                      ),
+                                      Text(
+                                        transactionPageUsersRecord
+                                            .loyaltyCardPoint
+                                            .toString(),
+                                        style: FlutterFlowTheme.subtitle2,
+                                      )
+                                    ],
                                   )
                                 ],
                               ),
@@ -149,16 +170,25 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Text(
-                                  'Trans Type: ',
-                                  style: FlutterFlowTheme.subtitle1,
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
+                                      0, 0, 5, 0),
                                   child: Text(
-                                    functions
-                                        .transactionType(widget.creditBool),
+                                    'Trans Type:',
+                                    style: FlutterFlowTheme.subtitle1,
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: widget.creditBool ?? true,
+                                  child: Text(
+                                    'Thanh Toan',
+                                    style: FlutterFlowTheme.title3,
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: !(widget.creditBool) ?? true,
+                                  child: Text(
+                                    'Nap Tien',
                                     style: FlutterFlowTheme.title3,
                                   ),
                                 )
@@ -197,7 +227,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                         ),
                                         alignment: AlignmentDirectional(0, 0),
                                         child: TextFormField(
-                                          controller: textController,
+                                          controller: textController1,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             enabledBorder: InputBorder.none,
@@ -224,12 +254,12 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
+                                EdgeInsetsDirectional.fromSTEB(10, 1, 0, 10),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'Amount: ',
+                                  'Total Quantity:',
                                   style: FlutterFlowTheme.subtitle1,
                                 ),
                                 Expanded(
@@ -253,58 +283,24 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                           ),
                                         ),
                                         alignment: AlignmentDirectional(0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              formatNumber(
-                                                widget.transAmount,
-                                                formatType: FormatType.decimal,
-                                                decimalType:
-                                                    DecimalType.commaDecimal,
-                                              ),
-                                              style: FlutterFlowTheme.title3,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(5, 0, 0, 0),
-                                              child: Text(
-                                                'VND',
-                                                style: FlutterFlowTheme.title3,
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () async {
-                                                await showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return Padding(
-                                                      padding:
-                                                          MediaQuery.of(context)
-                                                              .viewInsets,
-                                                      child: Container(
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.4,
-                                                        child:
-                                                            InputCompWidget(),
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              child: Icon(
-                                                Icons.edit_sharp,
-                                                color: Colors.black,
-                                                size: 24,
-                                              ),
-                                            )
-                                          ],
+                                        child: TextFormField(
+                                          controller: textController2,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            enabledBorder: InputBorder.none,
+                                            focusedBorder: InputBorder.none,
+                                          ),
+                                          style: FlutterFlowTheme.title3,
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                          keyboardType: TextInputType.number,
+                                          validator: (val) {
+                                            if (val.isEmpty) {
+                                              return 'required';
+                                            }
+
+                                            return null;
+                                          },
                                         ),
                                       ),
                                     ),
@@ -407,10 +403,10 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                   return;
                                 }
                                 if (!(functions.returnFalseIfNegative(
-                                    functions.getThenAddPoint(
+                                    functions.addOrSubstractTwoInteger(
                                         transactionPageUsersRecord.point,
-                                        int.parse(textController.text),
-                                        widget.creditBool)))) {
+                                        int.parse(textController1.text),
+                                        !(widget.creditBool))))) {
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -429,10 +425,10 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                   );
                                 }
                                 if (functions.returnFalseIfNegative(
-                                    functions.getThenAddPoint(
+                                    functions.addOrSubstractTwoInteger(
                                         transactionPageUsersRecord.point,
-                                        int.parse(textController.text),
-                                        widget.creditBool))) {
+                                        int.parse(textController1.text),
+                                        !(widget.creditBool)))) {
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -451,21 +447,16 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                 } else {
                                   return;
                                 }
-                                final usersUpdateData = createUsersRecordData(
-                                  point: functions.getThenAddPoint(
-                                      transactionPageUsersRecord.point,
-                                      int.parse(textController.text),
-                                      widget.creditBool),
-                                );
-                                await widget.userRef.update(usersUpdateData);
-
                                 final transactionsCreateData =
                                     createTransactionsRecordData(
-                                  amount: int.parse(textController.text),
+                                  amount: int.parse(textController1.text),
                                   customerId: widget.userRef,
                                   credit: widget.creditBool,
                                   time: getCurrentTimestamp,
                                   receiptUrl: uploadedFileUrl,
+                                  quantity: int.parse(textController2.text),
+                                  initialPoint:
+                                      transactionPageUsersRecord.point,
                                 );
                                 final transactionsRecordReference =
                                     TransactionsRecord.collection.doc();
@@ -475,6 +466,22 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                     TransactionsRecord.getDocumentFromData(
                                         transactionsCreateData,
                                         transactionsRecordReference);
+
+                                final usersUpdateData = createUsersRecordData(
+                                  point: functions.addOrSubstractTwoInteger(
+                                      transactionPageUsersRecord.point,
+                                      int.parse(textController1.text),
+                                      !(widget.creditBool)),
+                                  loyaltyCardPoint:
+                                      functions.setLimitToInterger(
+                                          functions.addOrSubstractTwoInteger(
+                                              transactionPageUsersRecord
+                                                  .loyaltyCardPoint,
+                                              int.parse(textController2.text),
+                                              true),
+                                          10),
+                                );
+                                await widget.userRef.update(usersUpdateData);
                                 if (widget.onlineOrder) {
                                   final ordersUpdateData =
                                       createOrdersRecordData(

@@ -58,7 +58,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                 children: [
                   BackNavWidget(),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 180,
@@ -103,9 +103,47 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                               customerDetailPageUsersRecord.phoneNumber,
                               style: FlutterFlowTheme.subtitle1,
                             ),
-                            Text(
-                              customerDetailPageUsersRecord.point.toString(),
-                              style: FlutterFlowTheme.subtitle1,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Point:',
+                                  style: FlutterFlowTheme.subtitle1,
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 0, 0, 0),
+                                  child: Text(
+                                    formatNumber(
+                                      customerDetailPageUsersRecord.point,
+                                      formatType: FormatType.decimal,
+                                      decimalType: DecimalType.commaDecimal,
+                                    ),
+                                    style: FlutterFlowTheme.subtitle1,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Loyalty point:',
+                                  style: FlutterFlowTheme.subtitle1,
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 0, 0, 0),
+                                  child: Text(
+                                    customerDetailPageUsersRecord
+                                        .loyaltyCardPoint
+                                        .toString(),
+                                    style: FlutterFlowTheme.subtitle1,
+                                  ),
+                                )
+                              ],
                             )
                           ],
                         ),
@@ -128,6 +166,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                                   creditBool: false,
                                   onlineOrder: false,
                                   transAmount: 0,
+                                  transQuantity: 1,
                                 ),
                               ),
                             );
@@ -158,6 +197,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                                   creditBool: true,
                                   onlineOrder: false,
                                   transAmount: 0,
+                                  transQuantity: 1,
                                 ),
                               ),
                             );
@@ -195,7 +235,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                       child: StreamBuilder<List<TransactionsRecord>>(
                         stream: queryTransactionsRecord(
                           queryBuilder: (transactionsRecord) =>
@@ -285,9 +325,14 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                                                     FlutterFlowTheme.subtitle1,
                                               ),
                                               Text(
-                                                listViewTransactionsRecord
-                                                    .amount
-                                                    .toString(),
+                                                formatNumber(
+                                                  listViewTransactionsRecord
+                                                      .amount,
+                                                  formatType:
+                                                      FormatType.decimal,
+                                                  decimalType:
+                                                      DecimalType.commaDecimal,
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.bodyText1,
                                               )
