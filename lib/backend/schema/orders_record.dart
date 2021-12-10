@@ -100,6 +100,47 @@ abstract class OrdersRecord
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static OrdersRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      OrdersRecord(
+        (c) => c
+          ..userId = safeGet(() => toRef(snapshot.data['user_id']))
+          ..items = safeGet(
+              () => ListBuilder(snapshot.data['items'].map((s) => toRef(s))))
+          ..createdTime = safeGet(() => DateTime.fromMillisecondsSinceEpoch(
+              snapshot.data['created_time']))
+          ..inCart = snapshot.data['in_cart']
+          ..total = snapshot.data['total']
+          ..transacted = snapshot.data['transacted']
+          ..totalQuantity = snapshot.data['total_quantity']
+          ..pointPayment = snapshot.data['point_payment']
+          ..cashPayment = snapshot.data['cash_payment']
+          ..pickup = snapshot.data['pickup']
+          ..delivery = snapshot.data['delivery']
+          ..pickupAddress = snapshot.data['pickup_address']
+          ..deliveryAddress = snapshot.data['delivery_address']
+          ..statusProcessing = snapshot.data['status_processing']
+          ..statusReady = snapshot.data['status_ready']
+          ..statusDone = snapshot.data['status_done']
+          ..transactionId =
+              safeGet(() => toRef(snapshot.data['transaction_id']))
+          ..reference = OrdersRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<OrdersRecord>> search(
+          {String term,
+          FutureOr<LatLng> location,
+          int maxResults,
+          double searchRadiusMeters}) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'orders',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
+
   OrdersRecord._();
   factory OrdersRecord([void Function(OrdersRecordBuilder) updates]) =
       _$OrdersRecord;

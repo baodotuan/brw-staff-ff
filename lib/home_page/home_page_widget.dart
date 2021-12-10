@@ -6,7 +6,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../login_page/login_page_widget.dart';
-import '../manage_staff_page/manage_staff_page_widget.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -20,7 +20,6 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  List<UsersRecord> algoliaSearchResults = [];
   TextEditingController textController;
   var qrResult = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -28,7 +27,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    textController = TextEditingController(text: qrResult);
   }
 
   @override
@@ -72,70 +71,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
               ),
               Divider(),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 1),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
-                    border: Border.all(
-                      color: Color(0x6F303030),
-                    ),
-                  ),
-                  child: Align(
-                    alignment: AlignmentDirectional(0, 0),
-                    child: Text(
-                      'cashier',
-                      style: FlutterFlowTheme.title3,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE),
-                  border: Border.all(
-                    color: Color(0x6F303030),
-                  ),
-                ),
-                child: Align(
-                  alignment: AlignmentDirectional(0, 0),
-                  child: Text(
-                    'manager',
-                    style: FlutterFlowTheme.title3,
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () async {
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ManageStaffPageWidget(),
-                    ),
-                  );
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
-                    border: Border.all(
-                      color: Color(0x6F303030),
-                    ),
-                  ),
-                  child: Align(
-                    alignment: AlignmentDirectional(0, 0),
-                    child: Text(
-                      'admin',
-                      style: FlutterFlowTheme.title3,
-                    ),
-                  ),
-                ),
-              ),
               FFButtonWidget(
                 onPressed: () async {
                   await signOut();
@@ -171,6 +106,55 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: StreamBuilder<List<OrdersRecord>>(
+                      stream: queryOrdersRecord(
+                        queryBuilder: (ordersRecord) => ordersRecord
+                            .where('in_cart', isEqualTo: false)
+                            .where('status_processing', isEqualTo: true),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: SpinKitDoubleBounce(
+                                color: FlutterFlowTheme.primaryColor,
+                                size: 40,
+                              ),
+                            ),
+                          );
+                        }
+                        List<OrdersRecord> containerOrdersRecordList =
+                            snapshot.data;
+                        return Container(
+                          width: 100,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFB55329),
+                          ),
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Text(
+                            '${containerOrdersRecordList.length.toString()} orders need to be processed',
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Roboto',
+                              color: FlutterFlowTheme.tertiaryColor,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
               child: Row(
@@ -208,6 +192,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    'textController',
+                                    Duration(milliseconds: 500),
+                                    () => setState(() {}),
+                                  ),
                                   controller: textController,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -236,31 +225,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                   style: FlutterFlowTheme.bodyText1,
                                 ),
-                              ),
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 0,
-                                buttonSize: 50,
-                                icon: Icon(
-                                  Icons.search,
-                                  color: Color(0x6F303030),
-                                  size: 20,
-                                ),
-                                onPressed: () async {
-                                  setState(() => algoliaSearchResults = null);
-                                  await UsersRecord.search(
-                                    term: valueOrDefault<String>(
-                                      textController.text,
-                                      '*',
-                                    ),
-                                    maxResults: 5,
-                                  )
-                                      .then((r) => algoliaSearchResults = r)
-                                      .onError(
-                                          (_, __) => algoliaSearchResults = [])
-                                      .whenComplete(() => setState(() {}));
-                                },
                               )
                             ],
                           ),
@@ -412,8 +376,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     5, 0, 0, 0),
                                             child: Text(
-                                              resultListViewUsersRecord.point
-                                                  .toString(),
+                                              formatNumber(
+                                                resultListViewUsersRecord.point,
+                                                formatType: FormatType.decimal,
+                                                decimalType:
+                                                    DecimalType.commaDecimal,
+                                              ),
                                               style: FlutterFlowTheme.title3,
                                             ),
                                           )

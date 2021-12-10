@@ -14,8 +14,6 @@ import '../../login_page/login_page_widget.dart';
 import '../../customer_detail_page/customer_detail_page_widget.dart';
 import '../../order_detail_page/order_detail_page_widget.dart';
 import '../../transaction_page/transaction_page_widget.dart';
-import '../../manage_staff_page/manage_staff_page_widget.dart';
-import '../../create_acount_page/create_acount_page_widget.dart';
 
 class PushNotificationsHandler extends StatefulWidget {
   const PushNotificationsHandler(
@@ -98,9 +96,8 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         transAmount: getParameter(data, 'transAmount'),
         onlineOrder: getParameter(data, 'onlineOrder'),
         orderRef: getParameter(data, 'orderRef'),
+        transQuantity: getParameter(data, 'transQuantity'),
       ),
-  'ManageStaffPage': (data) async => ManageStaffPageWidget(),
-  'createAcountPage': (data) async => CreateAcountPageWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

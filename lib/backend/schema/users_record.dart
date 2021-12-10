@@ -54,6 +54,22 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   DocumentReference get inCartOrder;
 
   @nullable
+  @BuiltValueField(wireName: 'loyalty_card_point')
+  int get loyaltyCardPoint;
+
+  @nullable
+  @BuiltValueField(wireName: 'total_topup')
+  int get totalTopup;
+
+  @nullable
+  @BuiltValueField(wireName: 'total_spent')
+  int get totalSpent;
+
+  @nullable
+  @BuiltValueField(wireName: 'total_app_order')
+  int get totalAppOrder;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -66,7 +82,11 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..email = ''
     ..displayName = ''
     ..photoUrl = ''
-    ..processingOrder = ListBuilder();
+    ..processingOrder = ListBuilder()
+    ..loyaltyCardPoint = 0
+    ..totalTopup = 0
+    ..totalSpent = 0
+    ..totalAppOrder = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -92,6 +112,10 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
           ..processingOrder = safeGet(() => ListBuilder(
               snapshot.data['processing_order'].map((s) => toRef(s))))
           ..inCartOrder = safeGet(() => toRef(snapshot.data['in_cart_order']))
+          ..loyaltyCardPoint = snapshot.data['loyalty_card_point']
+          ..totalTopup = snapshot.data['total_topup']
+          ..totalSpent = snapshot.data['total_spent']
+          ..totalAppOrder = snapshot.data['total_app_order']
           ..reference = UsersRecord.collection.doc(snapshot.objectID),
       );
 
@@ -132,6 +156,10 @@ Map<String, dynamic> createUsersRecordData({
   String displayName,
   String photoUrl,
   DocumentReference inCartOrder,
+  int loyaltyCardPoint,
+  int totalTopup,
+  int totalSpent,
+  int totalAppOrder,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -147,4 +175,8 @@ Map<String, dynamic> createUsersRecordData({
           ..displayName = displayName
           ..photoUrl = photoUrl
           ..processingOrder = null
-          ..inCartOrder = inCartOrder));
+          ..inCartOrder = inCartOrder
+          ..loyaltyCardPoint = loyaltyCardPoint
+          ..totalTopup = totalTopup
+          ..totalSpent = totalSpent
+          ..totalAppOrder = totalAppOrder));

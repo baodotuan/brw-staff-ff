@@ -395,7 +395,11 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                   style: FlutterFlowTheme.subtitle1,
                                 ),
                                 Text(
-                                  columnOrdersRecord.total.toString(),
+                                  formatNumber(
+                                    columnOrdersRecord.total,
+                                    formatType: FormatType.decimal,
+                                    decimalType: DecimalType.commaDecimal,
+                                  ),
                                   style: FlutterFlowTheme.subtitle1,
                                 )
                               ],
@@ -434,51 +438,57 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                     )
                                   ],
                                 ),
-                                InkWell(
-                                  onTap: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.3,
-                                            child: PaymentMethodWidget(
-                                              cash: columnOrdersRecord
-                                                  .cashPayment,
-                                              point: columnOrdersRecord
-                                                  .pointPayment,
-                                              orderRef: widget.orderRef,
+                                Visibility(
+                                  visible:
+                                      !(columnOrdersRecord.transacted) ?? true,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return Padding(
+                                            padding: MediaQuery.of(context)
+                                                .viewInsets,
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.3,
+                                              child: PaymentMethodWidget(
+                                                cash: columnOrdersRecord
+                                                    .cashPayment,
+                                                point: columnOrdersRecord
+                                                    .pointPayment,
+                                                orderRef: widget.orderRef,
+                                              ),
                                             ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 4,
+                                      shape: const CircleBorder(),
+                                      child: Container(
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.primaryColor,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 10, 10, 10),
+                                          child: Icon(
+                                            Icons.edit,
+                                            color:
+                                                FlutterFlowTheme.tertiaryColor,
+                                            size: 24,
                                           ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 4,
-                                    shape: const CircleBorder(),
-                                    child: Container(
-                                      width: 50,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.primaryColor,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 10, 10, 10),
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: FlutterFlowTheme.tertiaryColor,
-                                          size: 24,
                                         ),
                                       ),
                                     ),
@@ -559,6 +569,9 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                                             .total,
                                                     onlineOrder: true,
                                                     orderRef: widget.orderRef,
+                                                    transQuantity:
+                                                        columnOrdersRecord
+                                                            .totalQuantity,
                                                   ),
                                                 ),
                                               );
