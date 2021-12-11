@@ -171,7 +171,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                               ),
                             );
                           },
-                          text: 'Nap tien',
+                          text: 'Nạp Tiền',
                           options: FFButtonOptions(
                             width: 130,
                             height: 40,
@@ -202,11 +202,51 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                               ),
                             );
                           },
-                          text: 'Thanh toan',
+                          text: 'Thanh Toán',
                           options: FFButtonOptions(
                             width: 130,
                             height: 40,
                             color: Color(0xFFA93F3F),
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Roboto',
+                              color: Colors.white,
+                            ),
+                            elevation: 4,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                            ),
+                            borderRadius: 20,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        FFButtonWidget(
+                          onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TransactionPageWidget(
+                                  userRef: widget.userRef,
+                                  creditBool: false,
+                                  onlineOrder: false,
+                                  transAmount: 0,
+                                  transQuantity: 1,
+                                ),
+                              ),
+                            );
+                          },
+                          text: 'Tích Điểm',
+                          options: FFButtonOptions(
+                            width: 130,
+                            height: 40,
+                            color: FlutterFlowTheme.primaryColor,
                             textStyle: FlutterFlowTheme.subtitle2.override(
                               fontFamily: 'Roboto',
                               color: Colors.white,
@@ -280,7 +320,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                                   ),
                                   child: Container(
                                     width: 100,
-                                    height: 100,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.tertiaryColor,
                                       borderRadius: BorderRadius.circular(10),
@@ -300,8 +340,8 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                                           child: CachedNetworkImage(
                                             imageUrl: listViewTransactionsRecord
                                                 .receiptUrl,
-                                            width: 100,
-                                            height: 100,
+                                            width: 80,
+                                            height: 80,
                                             fit: BoxFit.cover,
                                           ),
                                         ),

@@ -104,13 +104,9 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 5, 0),
-                                        child: Text(
-                                          transactionPageUsersRecord.lastName,
-                                          style: FlutterFlowTheme.subtitle1,
-                                        ),
+                                      Text(
+                                        transactionPageUsersRecord.lastName,
+                                        style: FlutterFlowTheme.subtitle1,
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -380,6 +376,21 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                         ),
                                       ),
                                     ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    '* yêu cầu hóa đơn có phương thức thanh toán BRW.POINT',
+                                    style: FlutterFlowTheme.bodyText1,
                                   ),
                                 )
                               ],

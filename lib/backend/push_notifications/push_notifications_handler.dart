@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import '../../login_page/login_page_widget.dart';
+import '../../all_transaction_page/all_transaction_page_widget.dart';
 import '../../customer_detail_page/customer_detail_page_widget.dart';
 import '../../order_detail_page/order_detail_page_widget.dart';
 import '../../transaction_page/transaction_page_widget.dart';
@@ -67,13 +68,12 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
   @override
   Widget build(BuildContext context) => _loading
-      ? const Center(
-          child: SizedBox(
-            width: 40,
-            height: 40,
-            child: SpinKitDoubleBounce(
-              color: FlutterFlowTheme.primaryColor,
-              size: 40,
+      ? Container(
+          color: Colors.transparent,
+          child: Builder(
+            builder: (context) => Image.asset(
+              'assets/images/app_splash.png',
+              fit: BoxFit.cover,
             ),
           ),
         )
@@ -82,6 +82,7 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
 final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'LoginPage': (data) async => LoginPageWidget(),
+  'allTransactionPage': (data) async => AllTransactionPageWidget(),
   'CustomerDetailPage': (data) async => CustomerDetailPageWidget(
         userRef: getParameter(data, 'userRef'),
       ),
