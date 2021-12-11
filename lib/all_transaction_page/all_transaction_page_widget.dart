@@ -107,54 +107,62 @@ class _AllTransactionPageWidgetState extends State<AllTransactionPageWidget> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Visibility(
-                                      visible: resultListViewTransactionsRecord
-                                              .credit ??
-                                          true,
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFA15555),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: Text(
-                                          '-',
-                                          style:
-                                              FlutterFlowTheme.title1.override(
-                                            fontFamily: 'Roboto',
-                                            color:
-                                                FlutterFlowTheme.tertiaryColor,
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Visibility(
+                                          visible:
+                                              resultListViewTransactionsRecord
+                                                      .credit ??
+                                                  true,
+                                          child: Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFA15555),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            alignment:
+                                                AlignmentDirectional(0, 0),
+                                            child: Text(
+                                              '-',
+                                              style: FlutterFlowTheme.title1
+                                                  .override(
+                                                fontFamily: 'Roboto',
+                                                color: FlutterFlowTheme
+                                                    .tertiaryColor,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible:
-                                          !(resultListViewTransactionsRecord
-                                                  .credit) ??
-                                              true,
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF325B21),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: Text(
-                                          '+',
-                                          style:
-                                              FlutterFlowTheme.title1.override(
-                                            fontFamily: 'Roboto',
-                                            color:
-                                                FlutterFlowTheme.tertiaryColor,
+                                        Visibility(
+                                          visible:
+                                              !(resultListViewTransactionsRecord
+                                                      .credit) ??
+                                                  true,
+                                          child: Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF325B21),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            alignment:
+                                                AlignmentDirectional(0, 0),
+                                            child: Text(
+                                              '+',
+                                              style: FlutterFlowTheme.title1
+                                                  .override(
+                                                fontFamily: 'Roboto',
+                                                color: FlutterFlowTheme
+                                                    .tertiaryColor,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
+                                        )
+                                      ],
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -174,7 +182,7 @@ class _AllTransactionPageWidgetState extends State<AllTransactionPageWidget> {
                                                     .fromSTEB(5, 0, 0, 0),
                                                 child: Text(
                                                   dateTimeFormat(
-                                                      'M/d h:m a',
+                                                      'd/M h:m a',
                                                       resultListViewTransactionsRecord
                                                           .time),
                                                   style: FlutterFlowTheme
