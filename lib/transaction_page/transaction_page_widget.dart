@@ -395,6 +395,21 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                 )
                               ],
                             ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    '*hóa đơn tích điểm yêu cầu \"Amount\" = 0',
+                                    style: FlutterFlowTheme.bodyText1,
+                                  ),
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),
