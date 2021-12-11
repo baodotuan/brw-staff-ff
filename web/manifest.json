@@ -1,11 +1,11 @@
 {
-    "name": "brw_staff",
-    "short_name": "brw_staff",
+    "name": "Brw.staff",
+    "short_name": "Brw.staff",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Brw.staff",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
