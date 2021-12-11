@@ -411,7 +411,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                 elevation: 2,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                      BorderRadius.circular(10),
                                                 ),
                                                 child: Container(
                                                   width: 100,
@@ -420,7 +420,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                     color: Color(0xFFEEEEEE),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            10),
                                                   ),
                                                   child: Padding(
                                                     padding:
@@ -443,13 +443,13 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                 BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
-                                                                  .circular(20),
+                                                                  .circular(10),
                                                               bottomRight:
                                                                   Radius
                                                                       .circular(
                                                                           0),
                                                               topLeft: Radius
-                                                                  .circular(20),
+                                                                  .circular(10),
                                                               topRight: Radius
                                                                   .circular(0),
                                                             ),
@@ -694,7 +694,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                 elevation: 2,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                      BorderRadius.circular(10),
                                                 ),
                                                 child: Container(
                                                   width: 100,
@@ -703,7 +703,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                     color: Color(0xFFEEEEEE),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            20),
+                                                            10),
                                                   ),
                                                   child: Padding(
                                                     padding:
@@ -726,13 +726,13 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                 BorderRadius
                                                                     .only(
                                                               bottomLeft: Radius
-                                                                  .circular(20),
+                                                                  .circular(10),
                                                               bottomRight:
                                                                   Radius
                                                                       .circular(
                                                                           0),
                                                               topLeft: Radius
-                                                                  .circular(20),
+                                                                  .circular(10),
                                                               topRight: Radius
                                                                   .circular(0),
                                                             ),

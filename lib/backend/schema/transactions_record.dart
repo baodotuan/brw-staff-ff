@@ -53,6 +53,35 @@ abstract class TransactionsRecord
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static TransactionsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      TransactionsRecord(
+        (c) => c
+          ..amount = snapshot.data['amount']
+          ..customerId = safeGet(() => toRef(snapshot.data['customer_id']))
+          ..credit = snapshot.data['credit']
+          ..time = safeGet(
+              () => DateTime.fromMillisecondsSinceEpoch(snapshot.data['time']))
+          ..receiptUrl = snapshot.data['receipt_url']
+          ..quantity = snapshot.data['quantity']
+          ..initialPoint = snapshot.data['initial_point']
+          ..reference = TransactionsRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<TransactionsRecord>> search(
+          {String term,
+          FutureOr<LatLng> location,
+          int maxResults,
+          double searchRadiusMeters}) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'transactions',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
+
   TransactionsRecord._();
   factory TransactionsRecord(
           [void Function(TransactionsRecordBuilder) updates]) =

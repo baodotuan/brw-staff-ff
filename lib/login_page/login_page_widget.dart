@@ -32,12 +32,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFF262D34),
+      backgroundColor: FlutterFlowTheme.tertiaryColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 1,
         decoration: BoxDecoration(
-          color: Color(0xFF262D34),
+          color: FlutterFlowTheme.primaryColor,
         ),
         child: Align(
           alignment: AlignmentDirectional(0, 1),
@@ -47,7 +47,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 70, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,

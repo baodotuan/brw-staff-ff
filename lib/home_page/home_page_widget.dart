@@ -1,3 +1,4 @@
+import '../all_transaction_page/all_transaction_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../customer_detail_page/customer_detail_page_widget.dart';
@@ -6,6 +7,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../login_page/login_page_widget.dart';
+import '../main.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -27,7 +29,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController(text: qrResult);
+    textController = TextEditingController();
   }
 
   @override
@@ -53,21 +55,65 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               Align(
                 alignment: AlignmentDirectional(0, 0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Align(
                           alignment: AlignmentDirectional(0, 0),
-                          child: Text(
-                            'STAFF 1',
-                            style: FlutterFlowTheme.title1,
+                          child: AuthUserStreamWidget(
+                            child: Text(
+                              currentUserEmail,
+                              style: FlutterFlowTheme.title3,
+                            ),
                           ),
                         ),
                       )
                     ],
                   ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 60, 0, 0),
+                        child: InkWell(
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    AllTransactionPageWidget(),
+                              ),
+                            );
+                          },
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 4,
+                            child: Container(
+                              width: 100,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFEEEEEE),
+                              ),
+                              child: Align(
+                                alignment: AlignmentDirectional(0, 0),
+                                child: Text(
+                                  'ALL TRANSACTIONS',
+                                  style: FlutterFlowTheme.subtitle1,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
               Divider(),
@@ -113,11 +159,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 children: [
                   Expanded(
                     child: StreamBuilder<List<OrdersRecord>>(
-                      stream: queryOrdersRecord(
-                        queryBuilder: (ordersRecord) => ordersRecord
-                            .where('in_cart', isEqualTo: false)
-                            .where('status_processing', isEqualTo: true),
-                      ),
+                      stream: queryOrdersRecord(),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
@@ -134,18 +176,42 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         }
                         List<OrdersRecord> containerOrdersRecordList =
                             snapshot.data;
-                        return Container(
-                          width: 100,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFB55329),
-                          ),
-                          alignment: AlignmentDirectional(0, 0),
-                          child: Text(
-                            '${containerOrdersRecordList.length.toString()} orders need to be processed',
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.tertiaryColor,
+                        return InkWell(
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    NavBarPage(initialPage: 'orderPage'),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFB55329),
+                            ),
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  containerOrdersRecordList.length.toString(),
+                                  style: FlutterFlowTheme.subtitle1.override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.tertiaryColor,
+                                  ),
+                                ),
+                                Text(
+                                  ' orders need to be processed',
+                                  style: FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.tertiaryColor,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         );
@@ -262,7 +328,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 child: FutureBuilder<List<UsersRecord>>(
                   future: UsersRecord.search(
                     term: textController.text,
-                    maxResults: 5,
+                    maxResults: 10,
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -316,14 +382,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               color: Colors.transparent,
                               elevation: 2,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: Container(
                                 width: 100,
                                 height: 80,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.tertiaryColor,
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
