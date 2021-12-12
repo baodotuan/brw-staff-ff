@@ -61,7 +61,7 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Order detail',
+                        'Order Detail',
                         style: FlutterFlowTheme.title1,
                       )
                     ],
@@ -410,7 +410,7 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                 EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   'Payment: ',
@@ -441,53 +441,58 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                 Visibility(
                                   visible:
                                       !(columnOrdersRecord.transacted) ?? true,
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) {
-                                          return Padding(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
-                                            child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.3,
-                                              child: PaymentMethodWidget(
-                                                cash: columnOrdersRecord
-                                                    .cashPayment,
-                                                point: columnOrdersRecord
-                                                    .pointPayment,
-                                                orderRef: widget.orderRef,
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20, 0, 0, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return Padding(
+                                              padding: MediaQuery.of(context)
+                                                  .viewInsets,
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.3,
+                                                child: PaymentMethodWidget(
+                                                  cash: columnOrdersRecord
+                                                      .cashPayment,
+                                                  point: columnOrdersRecord
+                                                      .pointPayment,
+                                                  orderRef: widget.orderRef,
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      elevation: 4,
-                                      shape: const CircleBorder(),
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.primaryColor,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        alignment: AlignmentDirectional(0, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 10, 10, 10),
-                                          child: Icon(
-                                            Icons.edit,
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        elevation: 4,
+                                        shape: const CircleBorder(),
+                                        child: Container(
+                                          width: 50,
+                                          height: 50,
+                                          decoration: BoxDecoration(
                                             color:
-                                                FlutterFlowTheme.tertiaryColor,
-                                            size: 24,
+                                                FlutterFlowTheme.primaryColor,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          alignment: AlignmentDirectional(0, 0),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10, 10, 10, 10),
+                                            child: Icon(
+                                              Icons.edit,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
+                                              size: 24,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -497,64 +502,68 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                               ],
                             ),
                           ),
-                          Visibility(
-                            visible: columnOrdersRecord.pointPayment ?? true,
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      20, 0, 20, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 10, 0),
+                                        child: Text(
+                                          'Status: ',
+                                          style: FlutterFlowTheme.subtitle1,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            columnOrdersRecord.transacted ??
+                                                true,
+                                        child: Text(
+                                          'Đã ',
+                                          style: FlutterFlowTheme.subtitle1,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            !(columnOrdersRecord.transacted) ??
+                                                true,
+                                        child: Text(
+                                          'Chưa ',
+                                          style: FlutterFlowTheme.subtitle1,
+                                        ),
+                                      ),
+                                      Text(
+                                        'thanh toán và tích điểm',
+                                        style: FlutterFlowTheme.subtitle1,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Visibility(
+                                  visible:
+                                      !(columnOrdersRecord.transacted) ?? true,
+                                  child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 20, 0),
+                                        0, 10, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 10, 0),
-                                          child: Text(
-                                            'Status: ',
-                                            style: FlutterFlowTheme.subtitle1,
-                                          ),
-                                        ),
                                         Visibility(
                                           visible:
-                                              columnOrdersRecord.transacted ??
+                                              columnOrdersRecord.pointPayment ??
                                                   true,
-                                          child: Text(
-                                            'Đã thanh toán',
-                                            style: FlutterFlowTheme.subtitle1,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: !(columnOrdersRecord
-                                                  .transacted) ??
-                                              true,
-                                          child: Text(
-                                            'Chưa thanh toán',
-                                            style: FlutterFlowTheme.subtitle1,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: !(columnOrdersRecord.transacted) ??
-                                        true,
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          FFButtonWidget(
+                                          child: FFButtonWidget(
                                             onPressed: () async {
                                               await Navigator.push(
                                                 context,
@@ -594,13 +603,57 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                               ),
                                               borderRadius: 12,
                                             ),
-                                          )
-                                        ],
-                                      ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible:
+                                              columnOrdersRecord.cashPayment ??
+                                                  true,
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TransactionPageWidget(
+                                                    creditBool: true,
+                                                    userRef: columnOrdersRecord
+                                                        .userId,
+                                                    transAmount: 0,
+                                                    onlineOrder: true,
+                                                    orderRef: widget.orderRef,
+                                                    transQuantity:
+                                                        columnOrdersRecord
+                                                            .totalQuantity,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            text: 'Tích Điểm',
+                                            options: FFButtonOptions(
+                                              width: 130,
+                                              height: 40,
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Roboto',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
+                                  ),
+                                )
+                              ],
                             ),
                           )
                         ],
@@ -679,7 +732,7 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                       ),
                     ),
                     Visibility(
-                      visible: columnOrdersRecord.statusDone ?? true,
+                      visible: columnOrdersRecord.transacted ?? true,
                       child: Expanded(
                         child: InkWell(
                           onTap: () async {

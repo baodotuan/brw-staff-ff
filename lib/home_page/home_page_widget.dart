@@ -159,7 +159,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 children: [
                   Expanded(
                     child: StreamBuilder<List<OrdersRecord>>(
-                      stream: queryOrdersRecord(),
+                      stream: queryOrdersRecord(
+                        queryBuilder: (ordersRecord) =>
+                            ordersRecord.where('in_cart', isEqualTo: false),
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
