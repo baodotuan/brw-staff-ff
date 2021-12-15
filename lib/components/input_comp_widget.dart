@@ -28,7 +28,7 @@ class _InputCompWidgetState extends State<InputCompWidget> {
                 Text(
                   'Title',
                   style: FlutterFlowTheme.title2,
-                )
+                ),
               ],
             ),
           ),
@@ -47,7 +47,7 @@ class _InputCompWidgetState extends State<InputCompWidget> {
                     ),
                     alignment: AlignmentDirectional(0, 0),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -94,9 +94,9 @@ class _InputCompWidgetState extends State<InputCompWidget> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

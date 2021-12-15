@@ -36,16 +36,15 @@ class _PaymentMethodWidgetState extends State<PaymentMethodWidget> {
             Text(
               'Payment Method',
               style: FlutterFlowTheme.title3,
-            )
+            ),
           ],
         ),
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Visibility(
-              visible: widget.point ?? true,
-              child: InkWell(
+            if (widget.point ?? true)
+              InkWell(
                 onTap: () async {
                   final ordersUpdateData = createOrdersRecordData(
                     cashPayment: true,
@@ -81,10 +80,8 @@ class _PaymentMethodWidgetState extends State<PaymentMethodWidget> {
                   ),
                 ),
               ),
-            ),
-            Visibility(
-              visible: widget.cash ?? true,
-              child: InkWell(
+            if (widget.cash ?? true)
+              InkWell(
                 onTap: () async {
                   final ordersUpdateData = createOrdersRecordData(
                     pointPayment: true,
@@ -120,9 +117,8 @@ class _PaymentMethodWidgetState extends State<PaymentMethodWidget> {
                   ),
                 ),
               ),
-            )
           ],
-        )
+        ),
       ],
     );
   }

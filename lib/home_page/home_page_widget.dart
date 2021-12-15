@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../login_page/login_page_widget.dart';
 import '../main.dart';
+import '../custom_code/widgets/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -69,7 +70,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -112,7 +113,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -143,7 +144,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                   borderRadius: 12,
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -213,14 +214,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     fontFamily: 'Roboto',
                                     color: FlutterFlowTheme.tertiaryColor,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
                         );
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -232,7 +233,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   Text(
                     'Search',
                     style: FlutterFlowTheme.title1,
-                  )
+                  ),
+                  Fcm(
+                    width: 20,
+                    height: 20,
+                  ),
                 ],
               ),
             ),
@@ -294,7 +299,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                   style: FlutterFlowTheme.bodyText1,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -321,7 +326,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
                       setState(() {});
                     },
-                  )
+                  ),
                 ],
               ),
             ),
@@ -430,7 +435,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   .lastName,
                                               style: FlutterFlowTheme.subtitle1,
                                             ),
-                                          )
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Phone:',
+                                            style: FlutterFlowTheme.subtitle1,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Text(
+                                              resultListViewUsersRecord
+                                                  .phoneNumber,
+                                              style: FlutterFlowTheme.subtitle1,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       Row(
@@ -453,9 +477,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               ),
                                               style: FlutterFlowTheme.title3,
                                             ),
-                                          )
+                                          ),
                                         ],
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -468,7 +492,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   },
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

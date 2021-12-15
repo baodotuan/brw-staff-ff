@@ -35,7 +35,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                     Text(
                       'Current Order',
                       style: FlutterFlowTheme.title1,
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -58,7 +58,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                           ),
                           Tab(
                             text: 'Done',
-                          )
+                          ),
                         ],
                       ),
                       Expanded(
@@ -204,7 +204,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                   color: Colors
                                                                       .white,
                                                                 ),
-                                                              )
+                                                              ),
                                                             ],
                                                           ),
                                                         ),
@@ -248,7 +248,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                       style: FlutterFlowTheme
                                                                           .bodyText1,
                                                                     ),
-                                                                  )
+                                                                  ),
                                                                 ],
                                                               ),
                                                               Row(
@@ -280,7 +280,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                       style: FlutterFlowTheme
                                                                           .bodyText1,
                                                                     ),
-                                                                  )
+                                                                  ),
                                                                 ],
                                                               ),
                                                               Row(
@@ -293,12 +293,10 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                     style: FlutterFlowTheme
                                                                         .bodyText1,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        listViewOrdersRecord.pickup ??
-                                                                            true,
-                                                                    child:
-                                                                        Padding(
+                                                                  if (listViewOrdersRecord
+                                                                          .pickup ??
+                                                                      true)
+                                                                    Padding(
                                                                       padding: EdgeInsetsDirectional
                                                                           .fromSTEB(
                                                                               5,
@@ -312,13 +310,10 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                             .bodyText1,
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        listViewOrdersRecord.delivery ??
-                                                                            true,
-                                                                    child:
-                                                                        Padding(
+                                                                  if (listViewOrdersRecord
+                                                                          .delivery ??
+                                                                      true)
+                                                                    Padding(
                                                                       padding: EdgeInsetsDirectional
                                                                           .fromSTEB(
                                                                               5,
@@ -332,19 +327,18 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                             .bodyText1,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
-                                                              )
+                                                              ),
                                                             ],
                                                           ),
-                                                        )
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     );
@@ -492,7 +486,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                   color: Colors
                                                                       .white,
                                                                 ),
-                                                              )
+                                                              ),
                                                             ],
                                                           ),
                                                         ),
@@ -536,7 +530,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                       style: FlutterFlowTheme
                                                                           .bodyText1,
                                                                     ),
-                                                                  )
+                                                                  ),
                                                                 ],
                                                               ),
                                                               Row(
@@ -563,7 +557,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                       style: FlutterFlowTheme
                                                                           .bodyText1,
                                                                     ),
-                                                                  )
+                                                                  ),
                                                                 ],
                                                               ),
                                                               Row(
@@ -576,12 +570,10 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                     style: FlutterFlowTheme
                                                                         .bodyText1,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        listViewOrdersRecord.pickup ??
-                                                                            true,
-                                                                    child:
-                                                                        Padding(
+                                                                  if (listViewOrdersRecord
+                                                                          .pickup ??
+                                                                      true)
+                                                                    Padding(
                                                                       padding: EdgeInsetsDirectional
                                                                           .fromSTEB(
                                                                               5,
@@ -595,13 +587,10 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                             .bodyText1,
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        listViewOrdersRecord.delivery ??
-                                                                            true,
-                                                                    child:
-                                                                        Padding(
+                                                                  if (listViewOrdersRecord
+                                                                          .delivery ??
+                                                                      true)
+                                                                    Padding(
                                                                       padding: EdgeInsetsDirectional
                                                                           .fromSTEB(
                                                                               5,
@@ -615,19 +604,18 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                             .bodyText1,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
-                                                              )
+                                                              ),
                                                             ],
                                                           ),
-                                                        )
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     );
@@ -775,7 +763,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                   color: Colors
                                                                       .white,
                                                                 ),
-                                                              )
+                                                              ),
                                                             ],
                                                           ),
                                                         ),
@@ -819,7 +807,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                       style: FlutterFlowTheme
                                                                           .bodyText1,
                                                                     ),
-                                                                  )
+                                                                  ),
                                                                 ],
                                                               ),
                                                               Row(
@@ -846,7 +834,7 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                       style: FlutterFlowTheme
                                                                           .bodyText1,
                                                                     ),
-                                                                  )
+                                                                  ),
                                                                 ],
                                                               ),
                                                               Row(
@@ -859,12 +847,10 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                     style: FlutterFlowTheme
                                                                         .bodyText1,
                                                                   ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        listViewOrdersRecord.pickup ??
-                                                                            true,
-                                                                    child:
-                                                                        Padding(
+                                                                  if (listViewOrdersRecord
+                                                                          .pickup ??
+                                                                      true)
+                                                                    Padding(
                                                                       padding: EdgeInsetsDirectional
                                                                           .fromSTEB(
                                                                               5,
@@ -878,13 +864,10 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                             .bodyText1,
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  Visibility(
-                                                                    visible:
-                                                                        listViewOrdersRecord.delivery ??
-                                                                            true,
-                                                                    child:
-                                                                        Padding(
+                                                                  if (listViewOrdersRecord
+                                                                          .delivery ??
+                                                                      true)
+                                                                    Padding(
                                                                       padding: EdgeInsetsDirectional
                                                                           .fromSTEB(
                                                                               5,
@@ -898,33 +881,32 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                                                             .bodyText1,
                                                                       ),
                                                                     ),
-                                                                  )
                                                                 ],
-                                                              )
+                                                              ),
                                                             ],
                                                           ),
-                                                        )
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     );
                                   },
                                 );
                               },
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

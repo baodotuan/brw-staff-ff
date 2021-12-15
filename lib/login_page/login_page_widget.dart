@@ -84,7 +84,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -139,7 +139,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -207,7 +207,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -254,13 +254,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                               borderRadius: 12,
                             ),
-                          )
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

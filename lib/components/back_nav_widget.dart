@@ -34,7 +34,7 @@ class _BackNavWidgetState extends State<BackNavWidget> {
               size: 24,
             ),
           ),
-        )
+        ),
       ],
     );
   }
