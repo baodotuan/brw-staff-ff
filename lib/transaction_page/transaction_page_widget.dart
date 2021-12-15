@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -511,6 +512,11 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                   await widget.orderRef
                                       .update(ordersUpdateData);
                                 }
+                                await sendNotiToCustomerCall(
+                                  uid: transactionPageUsersRecord.uid,
+                                  tittle: 'New transaction was created!',
+                                  message: 'Go to Brw.app for more details',
+                                );
                                 Navigator.pop(context);
 
                                 setState(() {});
