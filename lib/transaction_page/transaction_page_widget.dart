@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -115,7 +116,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                           transactionPageUsersRecord.firstName,
                                           style: FlutterFlowTheme.subtitle1,
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                   Text(
@@ -137,7 +138,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                           decimalType: DecimalType.commaDecimal,
                                         ),
                                         style: FlutterFlowTheme.subtitle2,
-                                      )
+                                      ),
                                     ],
                                   ),
                                   Row(
@@ -153,9 +154,9 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                             .loyaltyCardPoint
                                             .toString(),
                                         style: FlutterFlowTheme.subtitle2,
-                                      )
+                                      ),
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -174,20 +175,16 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                     style: FlutterFlowTheme.subtitle1,
                                   ),
                                 ),
-                                Visibility(
-                                  visible: widget.creditBool ?? true,
-                                  child: Text(
+                                if (widget.creditBool ?? true)
+                                  Text(
                                     'Thanh Toan',
                                     style: FlutterFlowTheme.title3,
                                   ),
-                                ),
-                                Visibility(
-                                  visible: !(widget.creditBool) ?? true,
-                                  child: Text(
+                                if (!(widget.creditBool) ?? true)
+                                  Text(
                                     'Nap Tien',
                                     style: FlutterFlowTheme.title3,
                                   ),
-                                )
                               ],
                             ),
                           ),
@@ -244,7 +241,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -301,7 +298,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -377,7 +374,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -392,7 +389,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                     '* yêu cầu hóa đơn có phương thức thanh toán BRW.POINT',
                                     style: FlutterFlowTheme.bodyText1,
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -407,10 +404,10 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                     '*hóa đơn tích điểm yêu cầu \"Amount\" = 0',
                                     style: FlutterFlowTheme.bodyText1,
                                   ),
-                                )
+                                ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -418,11 +415,9 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Visibility(
-                          visible:
-                              functions.returnFalseIfEmpty(uploadedFileUrl) ??
-                                  true,
-                          child: Expanded(
+                        if (functions.returnFalseIfEmpty(uploadedFileUrl) ??
+                            true)
+                          Expanded(
                             child: InkWell(
                               onTap: () async {
                                 if (!formKey.currentState.validate()) {
@@ -517,6 +512,11 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                   await widget.orderRef
                                       .update(ordersUpdateData);
                                 }
+                                await sendNotiToCustomerCall(
+                                  uid: transactionPageUsersRecord.uid,
+                                  tittle: 'New transaction was created!',
+                                  message: 'Go to Brw.app for more details',
+                                );
                                 Navigator.pop(context);
 
                                 setState(() {});
@@ -538,7 +538,6 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                               ),
                             ),
                           ),
-                        ),
                         Expanded(
                           child: InkWell(
                             onTap: () async {
@@ -560,9 +559,9 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
