@@ -642,7 +642,8 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                 await widget.orderRef.update(ordersUpdateData);
                                 await sendNotiToCustomerCall(
                                   uid: orderDetailPageUsersRecord.uid,
-                                  message: 'READY',
+                                  message: 'check your order at Brw.app',
+                                  tittle: 'YOUR ORDER IS READY!',
                                 );
                                 Navigator.pop(context);
                               },
@@ -680,7 +681,8 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                 await widget.userRef.update(usersUpdateData);
                                 await sendNotiToCustomerCall(
                                   uid: orderDetailPageUsersRecord.uid,
-                                  message: 'FINISHED',
+                                  tittle: 'YOUR ORDER IS FINISHED!',
+                                  message: 'check your order at Brw.app',
                                 );
                                 Navigator.pop(context);
                               },
