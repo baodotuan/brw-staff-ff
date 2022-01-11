@@ -1,6 +1,6 @@
 {
-    "name": "brw_staff",
-    "short_name": "brw_staff",
+    "name": "Brw staff",
+    "short_name": "Brw staff",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -53,6 +53,10 @@ abstract class TransactionsRecord
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<TransactionsRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then(
+          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   static TransactionsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
       TransactionsRecord(
         (c) => c

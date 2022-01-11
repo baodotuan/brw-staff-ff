@@ -25,6 +25,7 @@ export 'schema/menu_categories_record.dart';
 export 'schema/menu_items_record.dart';
 export 'schema/order_items_record.dart';
 
+/// Functions to query StaffsRecords (as a Stream and as a Future).
 Stream<List<StaffsRecord>> queryStaffsRecord(
         {Query Function(Query) queryBuilder,
         int limit = -1,
@@ -32,6 +33,14 @@ Stream<List<StaffsRecord>> queryStaffsRecord(
     queryCollection(StaffsRecord.collection, StaffsRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
+Future<List<StaffsRecord>> queryStaffsRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(StaffsRecord.collection, StaffsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query UsersRecords (as a Stream and as a Future).
 Stream<List<UsersRecord>> queryUsersRecord(
         {Query Function(Query) queryBuilder,
         int limit = -1,
@@ -39,6 +48,14 @@ Stream<List<UsersRecord>> queryUsersRecord(
     queryCollection(UsersRecord.collection, UsersRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
+Future<List<UsersRecord>> queryUsersRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(UsersRecord.collection, UsersRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query TransactionsRecords (as a Stream and as a Future).
 Stream<List<TransactionsRecord>> queryTransactionsRecord(
         {Query Function(Query) queryBuilder,
         int limit = -1,
@@ -47,6 +64,15 @@ Stream<List<TransactionsRecord>> queryTransactionsRecord(
         TransactionsRecord.collection, TransactionsRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
+Future<List<TransactionsRecord>> queryTransactionsRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(
+        TransactionsRecord.collection, TransactionsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query OrdersRecords (as a Stream and as a Future).
 Stream<List<OrdersRecord>> queryOrdersRecord(
         {Query Function(Query) queryBuilder,
         int limit = -1,
@@ -54,6 +80,14 @@ Stream<List<OrdersRecord>> queryOrdersRecord(
     queryCollection(OrdersRecord.collection, OrdersRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
+Future<List<OrdersRecord>> queryOrdersRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(OrdersRecord.collection, OrdersRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query MenuCategoriesRecords (as a Stream and as a Future).
 Stream<List<MenuCategoriesRecord>> queryMenuCategoriesRecord(
         {Query Function(Query) queryBuilder,
         int limit = -1,
@@ -62,6 +96,15 @@ Stream<List<MenuCategoriesRecord>> queryMenuCategoriesRecord(
         MenuCategoriesRecord.collection, MenuCategoriesRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
+Future<List<MenuCategoriesRecord>> queryMenuCategoriesRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(
+        MenuCategoriesRecord.collection, MenuCategoriesRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query MenuItemsRecords (as a Stream and as a Future).
 Stream<List<MenuItemsRecord>> queryMenuItemsRecord(
         {Query Function(Query) queryBuilder,
         int limit = -1,
@@ -69,11 +112,27 @@ Stream<List<MenuItemsRecord>> queryMenuItemsRecord(
     queryCollection(MenuItemsRecord.collection, MenuItemsRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
+Future<List<MenuItemsRecord>> queryMenuItemsRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(MenuItemsRecord.collection, MenuItemsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query OrderItemsRecords (as a Stream and as a Future).
 Stream<List<OrderItemsRecord>> queryOrderItemsRecord(
         {Query Function(Query) queryBuilder,
         int limit = -1,
         bool singleRecord = false}) =>
     queryCollection(OrderItemsRecord.collection, OrderItemsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Future<List<OrderItemsRecord>> queryOrderItemsRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(
+        OrderItemsRecord.collection, OrderItemsRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 Stream<List<T>> queryCollection<T>(
@@ -87,6 +146,27 @@ Stream<List<T>> queryCollection<T>(
     query = query.limit(singleRecord ? 1 : limit);
   }
   return query.snapshots().map((s) => s.docs
+      .map(
+        (d) => safeGet(
+          () => serializers.deserializeWith(serializer, serializedData(d)),
+          (e) => print('Error serializing doc ${d.reference.path}:\n$e'),
+        ),
+      )
+      .where((d) => d != null)
+      .toList());
+}
+
+Future<List<T>> queryCollectionOnce<T>(
+    CollectionReference collection, Serializer<T> serializer,
+    {Query Function(Query) queryBuilder,
+    int limit = -1,
+    bool singleRecord = false}) {
+  final builder = queryBuilder ?? (q) => q;
+  var query = builder(collection);
+  if (limit > 0 || singleRecord) {
+    query = query.limit(singleRecord ? 1 : limit);
+  }
+  return query.get().then((s) => s.docs
       .map(
         (d) => safeGet(
           () => serializers.deserializeWith(serializer, serializedData(d)),

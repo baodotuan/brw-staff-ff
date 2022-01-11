@@ -8,7 +8,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../login_page/login_page_widget.dart';
 import '../main.dart';
-import '../custom_code/widgets/index.dart';
+import '../custom_code/widgets/index.dart' as custom_widgets;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -45,7 +45,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: FlutterFlowTheme.tertiaryColor,
       drawer: Container(
         width: MediaQuery.of(context).size.width * 0.5,
         child: Drawer(
@@ -63,11 +63,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       Expanded(
                         child: Align(
                           alignment: AlignmentDirectional(0, 0),
-                          child: AuthUserStreamWidget(
-                            child: Text(
-                              currentUserEmail,
-                              style: FlutterFlowTheme.title3,
-                            ),
+                          child: Text(
+                            currentUserEmail,
+                            style: FlutterFlowTheme.title3,
                           ),
                         ),
                       ),
@@ -153,77 +151,82 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: StreamBuilder<List<OrdersRecord>>(
-                      stream: queryOrdersRecord(
-                        queryBuilder: (ordersRecord) =>
-                            ordersRecord.where('in_cart', isEqualTo: false),
+            StreamBuilder<List<OrdersRecord>>(
+              stream: queryOrdersRecord(
+                queryBuilder: (ordersRecord) =>
+                    ordersRecord.where('in_cart', isEqualTo: false),
+              ),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: SpinKitDoubleBounce(
+                        color: FlutterFlowTheme.primaryColor,
+                        size: 40,
                       ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 40,
+                    ),
+                  );
+                }
+                List<OrdersRecord> containerOrdersRecordList = snapshot.data;
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.tertiaryColor,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        if ((containerOrdersRecordList.length) != 0)
+                          InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      NavBarPage(initialPage: 'orderPage'),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
                               height: 40,
-                              child: SpinKitDoubleBounce(
-                                color: FlutterFlowTheme.primaryColor,
-                                size: 40,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFB55329),
                               ),
-                            ),
-                          );
-                        }
-                        List<OrdersRecord> containerOrdersRecordList =
-                            snapshot.data;
-                        return InkWell(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NavBarPage(initialPage: 'orderPage'),
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    containerOrdersRecordList.length.toString(),
+                                    style: FlutterFlowTheme.subtitle1.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.tertiaryColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    ' orders need to be processed',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.tertiaryColor,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            );
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFB55329),
-                            ),
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  containerOrdersRecordList.length.toString(),
-                                  style: FlutterFlowTheme.subtitle1.override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.tertiaryColor,
-                                  ),
-                                ),
-                                Text(
-                                  ' orders need to be processed',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.tertiaryColor,
-                                  ),
-                                ),
-                              ],
                             ),
                           ),
-                        );
-                      },
+                      ],
                     ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
@@ -234,7 +237,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     'Search',
                     style: FlutterFlowTheme.title1,
                   ),
-                  Fcm(
+                  custom_widgets.Fcm(
                     width: 20,
                     height: 20,
                   ),
@@ -255,8 +258,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         width: MediaQuery.of(context).size.width * 0.8,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.tertiaryColor,
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(40),
+                          border: Border.all(
+                            color: FlutterFlowTheme.primaryColor,
+                            width: 1,
+                          ),
                         ),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
@@ -296,6 +303,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         topRight: Radius.circular(4.0),
                                       ),
                                     ),
+                                    suffixIcon: textController.text.isNotEmpty
+                                        ? InkWell(
+                                            onTap: () => setState(
+                                              () => textController.clear(),
+                                            ),
+                                            child: Icon(
+                                              Icons.clear,
+                                              color: Color(0xFF757575),
+                                              size: 22,
+                                            ),
+                                          )
+                                        : null,
                                   ),
                                   style: FlutterFlowTheme.bodyText1,
                                 ),
@@ -336,6 +355,332 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 child: FutureBuilder<List<UsersRecord>>(
                   future: UsersRecord.search(
                     term: textController.text,
+                    maxResults: 10,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: SpinKitDoubleBounce(
+                            color: FlutterFlowTheme.primaryColor,
+                            size: 40,
+                          ),
+                        ),
+                      );
+                    }
+                    List<UsersRecord> resultListViewUsersRecordList =
+                        snapshot.data;
+                    // Customize what your widget looks like with no search results.
+                    if (snapshot.data.isEmpty) {
+                      return Container(
+                        height: 100,
+                        child: Center(
+                          child: Text('No results.'),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      itemCount: resultListViewUsersRecordList.length,
+                      itemBuilder: (context, resultListViewIndex) {
+                        final resultListViewUsersRecord =
+                            resultListViewUsersRecordList[resultListViewIndex];
+                        return Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      CustomerDetailPageWidget(
+                                    userRef:
+                                        resultListViewUsersRecord.reference,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Material(
+                              color: Colors.transparent,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Container(
+                                width: 100,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 10, 10, 10),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Name:',
+                                            style: FlutterFlowTheme.subtitle1,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Text(
+                                              resultListViewUsersRecord
+                                                  .firstName,
+                                              style: FlutterFlowTheme.subtitle1,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Text(
+                                              resultListViewUsersRecord
+                                                  .lastName,
+                                              style: FlutterFlowTheme.subtitle1,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Phone:',
+                                            style: FlutterFlowTheme.subtitle1,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Text(
+                                              resultListViewUsersRecord
+                                                  .phoneNumber,
+                                              style: FlutterFlowTheme.subtitle1,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Point:',
+                                            style: FlutterFlowTheme.title3,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Text(
+                                              formatNumber(
+                                                resultListViewUsersRecord.point,
+                                                formatType: FormatType.decimal,
+                                                decimalType:
+                                                    DecimalType.commaDecimal,
+                                              ),
+                                              style: FlutterFlowTheme.title3,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
+                child: FutureBuilder<List<UsersRecord>>(
+                  future: UsersRecord.search(
+                    term: '${textController.text}${qrResult}',
+                    maxResults: 10,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: SpinKitDoubleBounce(
+                            color: FlutterFlowTheme.primaryColor,
+                            size: 40,
+                          ),
+                        ),
+                      );
+                    }
+                    List<UsersRecord> resultListViewUsersRecordList =
+                        snapshot.data;
+                    // Customize what your widget looks like with no search results.
+                    if (snapshot.data.isEmpty) {
+                      return Container(
+                        height: 100,
+                        child: Center(
+                          child: Text('No results.'),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      itemCount: resultListViewUsersRecordList.length,
+                      itemBuilder: (context, resultListViewIndex) {
+                        final resultListViewUsersRecord =
+                            resultListViewUsersRecordList[resultListViewIndex];
+                        return Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      CustomerDetailPageWidget(
+                                    userRef:
+                                        resultListViewUsersRecord.reference,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Material(
+                              color: Colors.transparent,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Container(
+                                width: 100,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 10, 10, 10),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Name:',
+                                            style: FlutterFlowTheme.subtitle1,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Text(
+                                              resultListViewUsersRecord
+                                                  .firstName,
+                                              style: FlutterFlowTheme.subtitle1,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Text(
+                                              resultListViewUsersRecord
+                                                  .lastName,
+                                              style: FlutterFlowTheme.subtitle1,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Phone:',
+                                            style: FlutterFlowTheme.subtitle1,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Text(
+                                              resultListViewUsersRecord
+                                                  .phoneNumber,
+                                              style: FlutterFlowTheme.subtitle1,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Point:',
+                                            style: FlutterFlowTheme.title3,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5, 0, 0, 0),
+                                            child: Text(
+                                              formatNumber(
+                                                resultListViewUsersRecord.point,
+                                                formatType: FormatType.decimal,
+                                                decimalType:
+                                                    DecimalType.commaDecimal,
+                                              ),
+                                              style: FlutterFlowTheme.title3,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
+                child: FutureBuilder<List<UsersRecord>>(
+                  future: UsersRecord.search(
+                    term: qrResult,
                     maxResults: 10,
                   ),
                   builder: (context, snapshot) {

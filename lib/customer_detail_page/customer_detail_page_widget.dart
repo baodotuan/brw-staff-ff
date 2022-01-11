@@ -279,10 +279,8 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                     child: StreamBuilder<List<TransactionsRecord>>(
                       stream: queryTransactionsRecord(
                         queryBuilder: (transactionsRecord) => transactionsRecord
-                            .where('customer_id',
-                                isEqualTo:
-                                    customerDetailPageUsersRecord.reference)
-                            .orderBy('customer_id', descending: true),
+                            .where('customer_id', isEqualTo: widget.userRef)
+                            .orderBy('time', descending: true),
                         limit: 10,
                       ),
                       builder: (context, snapshot) {
@@ -326,8 +324,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                                       10, 0, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -355,8 +352,8 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                                                 ),
                                               ),
                                             ),
-                                          if (resultListViewTransactionsRecord
-                                                  .credit ??
+                                          if (!(resultListViewTransactionsRecord
+                                                  .credit) ??
                                               true)
                                             Container(
                                               width: 50,
@@ -382,7 +379,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 10, 0, 10),
+                                            10, 10, 0, 10),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -460,44 +457,51 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                                           ],
                                         ),
                                       ),
-                                      InkWell(
-                                        onTap: () async {
-                                          await Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child:
-                                                  FlutterFlowExpandedImageView(
-                                                image: CachedNetworkImage(
+                                      Expanded(
+                                        child: Align(
+                                          alignment: AlignmentDirectional(1, 0),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              await Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child:
+                                                      FlutterFlowExpandedImageView(
+                                                    image: CachedNetworkImage(
+                                                      imageUrl:
+                                                          resultListViewTransactionsRecord
+                                                              .receiptUrl,
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                    allowRotation: false,
+                                                    tag: 'imageTag',
+                                                    useHeroAnimation: true,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: Hero(
+                                              tag: 'imageTag',
+                                              transitionOnUserGestures: true,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(0),
+                                                  bottomRight:
+                                                      Radius.circular(10),
+                                                  topLeft: Radius.circular(0),
+                                                  topRight: Radius.circular(10),
+                                                ),
+                                                child: CachedNetworkImage(
                                                   imageUrl:
                                                       resultListViewTransactionsRecord
                                                           .receiptUrl,
-                                                  fit: BoxFit.contain,
+                                                  width: 80,
+                                                  height: 80,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                allowRotation: false,
-                                                tag: 'imageTag',
-                                                useHeroAnimation: true,
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: 'imageTag',
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(0),
-                                              bottomRight: Radius.circular(10),
-                                              topLeft: Radius.circular(0),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  resultListViewTransactionsRecord
-                                                      .receiptUrl,
-                                              width: 80,
-                                              height: 80,
-                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),

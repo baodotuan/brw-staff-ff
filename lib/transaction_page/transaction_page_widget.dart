@@ -190,12 +190,12 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 1, 0, 10),
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 10),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'Amount: ',
+                                  'Số Tiền: ',
                                   style: FlutterFlowTheme.subtitle1,
                                 ),
                                 Expanded(
@@ -207,7 +207,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width,
-                                        height: 60,
+                                        height: 50,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.tertiaryColor,
                                           borderRadius:
@@ -247,12 +247,12 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 1, 0, 10),
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  'Total Quantity:',
+                                  'Cốc Tích Điểm:',
                                   style: FlutterFlowTheme.subtitle1,
                                 ),
                                 Expanded(
@@ -264,7 +264,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width,
-                                        height: 60,
+                                        height: 50,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.tertiaryColor,
                                           borderRadius:
@@ -401,7 +401,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    '*hóa đơn tích điểm yêu cầu \"Amount\" = 0',
+                                    '*hóa đơn tích điểm yêu cầu \"Số Tiền\" = 0',
                                     style: FlutterFlowTheme.bodyText1,
                                   ),
                                 ),
@@ -512,7 +512,7 @@ class _TransactionPageWidgetState extends State<TransactionPageWidget> {
                                   await widget.orderRef
                                       .update(ordersUpdateData);
                                 }
-                                await sendNotiToCustomerCall(
+                                await SendNotiToCustomerCall.call(
                                   uid: transactionPageUsersRecord.uid,
                                   tittle: 'New transaction was created!',
                                   message: 'Go to Brw.app for more details',
