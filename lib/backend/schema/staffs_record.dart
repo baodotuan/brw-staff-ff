@@ -58,6 +58,10 @@ abstract class StaffsRecord
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<StaffsRecord> getDocumentOnce(DocumentReference ref) => ref
+      .get()
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   StaffsRecord._();
   factory StaffsRecord([void Function(StaffsRecordBuilder) updates]) =
       _$StaffsRecord;

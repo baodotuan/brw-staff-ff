@@ -95,6 +95,10 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<UsersRecord> getDocumentOnce(DocumentReference ref) => ref
+      .get()
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   static UsersRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) => UsersRecord(
         (c) => c
           ..createdTime = safeGet(() => DateTime.fromMillisecondsSinceEpoch(

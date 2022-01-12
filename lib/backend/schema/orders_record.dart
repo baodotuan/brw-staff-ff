@@ -100,6 +100,10 @@ abstract class OrdersRecord
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static Future<OrdersRecord> getDocumentOnce(DocumentReference ref) => ref
+      .get()
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+
   static OrdersRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
       OrdersRecord(
         (c) => c
