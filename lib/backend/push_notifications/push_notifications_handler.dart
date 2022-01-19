@@ -98,6 +98,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         onlineOrder: getParameter(data, 'onlineOrder'),
         orderRef: getParameter(data, 'orderRef'),
         transQuantity: getParameter(data, 'transQuantity'),
+        tichDiem: getParameter(data, 'tichDiem'),
       ),
 };
 

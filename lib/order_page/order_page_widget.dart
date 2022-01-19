@@ -105,8 +105,14 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                               onTap: () async {
                                                 await Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
+                                                  PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 0),
+                                                    reverseDuration: Duration(
+                                                        milliseconds: 0),
+                                                    child:
                                                         OrderDetailPageWidget(
                                                       orderRef:
                                                           listViewOrdersRecord
@@ -387,8 +393,14 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                               onTap: () async {
                                                 await Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
+                                                  PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 0),
+                                                    reverseDuration: Duration(
+                                                        milliseconds: 0),
+                                                    child:
                                                         OrderDetailPageWidget(
                                                       orderRef:
                                                           listViewOrdersRecord
@@ -664,8 +676,14 @@ class _OrderPageWidgetState extends State<OrderPageWidget> {
                                               onTap: () async {
                                                 await Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
+                                                  PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 0),
+                                                    reverseDuration: Duration(
+                                                        milliseconds: 0),
+                                                    child:
                                                         OrderDetailPageWidget(
                                                       orderRef:
                                                           listViewOrdersRecord

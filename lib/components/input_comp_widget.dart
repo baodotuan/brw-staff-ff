@@ -82,7 +82,7 @@ class _InputCompWidgetState extends State<InputCompWidget> {
                     width: 100,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Color(0xFFAE2D2D),
+                      color: FlutterFlowTheme.red1,
                     ),
                     alignment: AlignmentDirectional(0, 0),
                     child: Text(

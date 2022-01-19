@@ -123,9 +123,11 @@ class _CancelOrderBSWidgetState extends State<CancelOrderBSWidget> {
                       await widget.orderRef.delete();
                       await Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              NavBarPage(initialPage: 'orderPage'),
+                        PageTransition(
+                          type: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                          reverseDuration: Duration(milliseconds: 0),
+                          child: NavBarPage(initialPage: 'orderPage'),
                         ),
                       );
                     },
@@ -133,7 +135,7 @@ class _CancelOrderBSWidgetState extends State<CancelOrderBSWidget> {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Color(0xFFCD290F),
+                        color: FlutterFlowTheme.red1,
                       ),
                       alignment: AlignmentDirectional(0, 0),
                       child: Text(
