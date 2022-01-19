@@ -86,9 +86,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           onTap: () async {
                             await Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    AllTransactionPageWidget(),
+                              PageTransition(
+                                type: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 0),
+                                reverseDuration: Duration(milliseconds: 0),
+                                child: AllTransactionPageWidget(),
                               ),
                             );
                           },
@@ -122,8 +124,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   await signOut();
                   await Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginPageWidget(),
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      duration: Duration(milliseconds: 0),
+                      reverseDuration: Duration(milliseconds: 0),
+                      child: LoginPageWidget(),
                     ),
                     (r) => false,
                   );
@@ -173,63 +178,62 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               List<OrdersRecord> containerOrdersRecordList = snapshot.data;
               return Container(
                 width: MediaQuery.of(context).size.width,
-                height: 40,
+                height: 30,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.tertiaryColor,
                 ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      if ((containerOrdersRecordList.length) != 0)
-                        InkWell(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NavBarPage(initialPage: 'orderPage'),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if ((containerOrdersRecordList.length) != 0)
+                      InkWell(
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 0),
+                              reverseDuration: Duration(milliseconds: 0),
+                              child: NavBarPage(initialPage: 'orderPage'),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.red1,
+                          ),
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                containerOrdersRecordList.length.toString(),
+                                style: FlutterFlowTheme.subtitle1.override(
+                                  fontFamily: 'Roboto',
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                ),
                               ),
-                            );
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFB55329),
-                            ),
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  containerOrdersRecordList.length.toString(),
-                                  style: FlutterFlowTheme.subtitle1.override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.tertiaryColor,
-                                  ),
+                              Text(
+                                ' orders need to be processed',
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Roboto',
+                                  color: FlutterFlowTheme.tertiaryColor,
                                 ),
-                                Text(
-                                  ' orders need to be processed',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.tertiaryColor,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                    ],
-                  ),
+                      ),
+                  ],
                 ),
               );
             },
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+            padding: EdgeInsetsDirectional.fromSTEB(20, 10, 0, 0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -390,8 +394,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       onTap: () async {
                         await Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => CustomerDetailPageWidget(
+                          PageTransition(
+                            type: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                            reverseDuration: Duration(milliseconds: 0),
+                            child: CustomerDetailPageWidget(
                               userRef: resultListViewUsersRecord.reference,
                             ),
                           ),
@@ -535,8 +542,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         onTap: () async {
                           await Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => CustomerDetailPageWidget(
+                            PageTransition(
+                              type: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 0),
+                              reverseDuration: Duration(milliseconds: 0),
+                              child: CustomerDetailPageWidget(
                                 userRef: resultListViewUsersRecord.reference,
                               ),
                             ),

@@ -39,6 +39,7 @@ dependencies:
   firebase_messaging: 11.2.4
   firebase_storage: 10.1.0
   flutter_barcode_scanner: ^2.0.0
+  flutter_datetime_picker: 1.5.0
   flutter_spinkit: 4.1.2+1
   font_awesome_flutter: 8.11.0
   google_fonts: 2.1.0
@@ -52,7 +53,11 @@ dependencies:
   photo_view: ^0.13.0
   rxdart: 0.26.0
   shared_preferences: 2.0.11
-  sign_in_with_apple: 3.3.0
+  sign_in_with_apple:
+    git:
+      url: https://github.com/asmengistu/dart_packages
+      ref: ab18d53a80e0a4bb90f1ad84f37f1b408930f28d
+      path: packages/sign_in_with_apple/sign_in_with_apple/
   timeago: 3.1.0
   url_launcher: 6.0.15
 

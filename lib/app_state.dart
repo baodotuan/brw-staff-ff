@@ -19,6 +19,8 @@ class FFAppState {
   SharedPreferences prefs;
 
   String searchInput;
+
+  bool transactionProcessing = false;
 }
 
 LatLng _latLngFromString(String val) {

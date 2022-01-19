@@ -7,6 +7,8 @@ class FlutterFlowTheme {
   static const Color secondaryColor = Color(0xFF477DB8);
   static const Color tertiaryColor = Color(0xFFFFFFFF);
 
+  static const Color red1 = Color(0xFFBE4545);
+
   String primaryFontFamily = 'Poppins';
   String secondaryFontFamily = 'Roboto';
   static TextStyle get title1 => GoogleFonts.getFont(

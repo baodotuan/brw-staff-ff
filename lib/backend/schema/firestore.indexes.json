@@ -67,6 +67,20 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "time",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "time",
+          "order": "DESCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": [

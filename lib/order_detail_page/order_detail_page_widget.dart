@@ -532,9 +532,13 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                           onPressed: () async {
                                             await Navigator.push(
                                               context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    TransactionPageWidget(
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                duration:
+                                                    Duration(milliseconds: 0),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 0),
+                                                child: TransactionPageWidget(
                                                   creditBool: true,
                                                   userRef:
                                                       columnOrdersRecord.userId,
@@ -574,9 +578,13 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                           onPressed: () async {
                                             await Navigator.push(
                                               context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    TransactionPageWidget(
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                duration:
+                                                    Duration(milliseconds: 0),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 0),
+                                                child: TransactionPageWidget(
                                                   creditBool: true,
                                                   userRef:
                                                       columnOrdersRecord.userId,
@@ -651,7 +659,7 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                                           options: FFButtonOptions(
                                             width: 150,
                                             height: 40,
-                                            color: Color(0xFFCD290F),
+                                            color: FlutterFlowTheme.red1,
                                             textStyle: FlutterFlowTheme
                                                 .subtitle2
                                                 .override(
@@ -761,7 +769,7 @@ class _OrderDetailPageWidgetState extends State<OrderDetailPageWidget> {
                               width: 100,
                               height: 50,
                               decoration: BoxDecoration(
-                                color: Color(0xFFAE2D2D),
+                                color: FlutterFlowTheme.red1,
                               ),
                               alignment: AlignmentDirectional(0, 0),
                               child: Text(
